@@ -1,0 +1,24 @@
+{
+  "name": "todo-practice-project",
+  "version": "1.0.0",
+  "description": "todo app",
+  "license": "ISC",
+  "author": "Roshan18",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "mongoose": "^9.12.0",
+    "morgan": "^1.12.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
