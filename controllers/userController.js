@@ -1,4 +1,6 @@
 const userModel = require("../models/userModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 //REGISTER
 const registerController = async (req, res) => {
@@ -19,8 +21,11 @@ const registerController = async (req, res) => {
         message: "user already exist",
       });
     }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
     //save user
-    const newUser = new userModel({ username, email, password });
+    const newUser = new userModel({ username, email, password: hashedPassword });
     await newUser.save();
 
     res.status(201).send({
@@ -38,11 +43,11 @@ const registerController = async (req, res) => {
 };
 
 //LOGIN
-const loginControler = async (req, res) => {
+const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
     //find user
-    const user = await userModel.findOne({ email, password });
+    const user = await userModel.findOne({ email,});
     //validation
     if (!user) {
       return res.status(404).send({
@@ -50,10 +55,27 @@ const loginControler = async (req, res) => {
         message: "Invalid Email Or Password",
       });
     }
+    //match password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(404).send({
+        success: false,
+        message: "Invalid Email Or Password",
+      });
+    }
+    //token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
     res.status(200).send({
       success: true,
       message: "login successfully",
-      user,
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
     });
   } catch (error) {
     console.log(error);
