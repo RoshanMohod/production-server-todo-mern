@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { createTodo, updateTodo } from "../services/todoService";
+import { createTodo, updateTodo } from "../Services/todoService";
 import "./TodoModal.css";
 
 const TodoModal = ({ isOpen, onClose, onTodoCreated, todoToEdit }) => {
