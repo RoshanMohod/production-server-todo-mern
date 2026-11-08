@@ -30,9 +30,6 @@ const Navbar = () => {
           <li>
             <Link to="/" className="nav-item">Home</Link>
           </li>
-          <li>
-            <Link to="/about" className="nav-item">About</Link>
-          </li>
 
           {token ? (
             <>

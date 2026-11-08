@@ -18,7 +18,6 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/about" element={<About />} />
         <Route path="/todoList" element={<TodoList />} />
       </Routes>
 
