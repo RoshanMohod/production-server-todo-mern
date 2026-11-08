@@ -2,8 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path');
 const connectDB = require('./config/db');
-const errorMiddleware = require("./middlewares/errorMiddleware");
+const errorMiddleware = require('./middlewares/errorMiddleware');
 
 // Dotenv config
 dotenv.config();
@@ -19,10 +20,19 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
 
-// routes
-app.use('/api/v1/user', require("./routes/userRoute"));
-app.use('/api/v1/test', require("./routes/testRouter"));
-app.use('/api/v1/todo', require("./routes/todoRoute")); // <--- ADD THIS LINE
+// API Routes
+app.use('/api/v1/user', require('./routes/userRoute'));
+app.use('/api/v1/test', require('./routes/testRouter'));
+app.use('/api/v1/todo', require('./routes/todoRoute'));
+
+// SERVE STATIC FILES IN PRODUCTION
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, './client/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+  });
+}
 
 // ERROR HANDLING MIDDLEWARE (Must remain at the very end of all routes)
 app.use(errorMiddleware);
