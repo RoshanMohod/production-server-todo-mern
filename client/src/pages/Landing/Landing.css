@@ -1,0 +1,176 @@
+/* ===== Base / Reset ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f8fafc; /* Light clean background */
+  overflow-x: hidden;
+}
+
+/* ===== Main Container (Side-by-Side) ===== */
+.landing-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 6rem;
+  gap: 4rem; /* Space between text and image */
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== Left Side: Text ===== */
+.hero {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end; /* Pushes text towards the center gap */
+  animation: fadeSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.intro-text {
+  max-width: 500px; /* Keeps text from getting too wide */
+}
+
+.intro-text h1 {
+  font-size: clamp(2.5rem, 4vw, 3.8rem);
+  line-height: 1.1;
+  font-weight: 800;
+  margin: 0 0 1.5rem;
+  color: #1a1f36;
+  letter-spacing: -0.03em;
+}
+
+/* Tagline styling */
+.tagline1 {
+  color: #1a1f36;
+  animation: revealText 0.8s ease-out 0.2s both;
+}
+
+.tagline2 {
+  color: #e63946;
+  font-style: italic;
+  animation: revealText 0.8s ease-out 0.4s both;
+}
+
+.intro-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #4a5568;
+  margin: 0 0 2.5rem;
+  animation: fadeSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+/* ===== Buttons ===== */
+.button-group {
+  display: flex;
+  gap: 1rem;
+  animation: fadeSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px; /* Slightly sharper corners like image 2 */
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn.red {
+  background-color: #e63946;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+}
+
+.btn.red:hover {
+  background-color: #d62839;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(230, 57, 70, 0.4);
+}
+
+.btn.blue {
+  background-color: transparent;
+  color: #1a1f36;
+  border-color: #1a1f36;
+}
+
+.btn.blue:hover {
+  background-color: #1a1f36;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ===== Right Side: Image ===== */
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start; /* Pushes image towards the center gap */
+  animation: fadeSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 650px; /* Controls the image size */
+  height: auto;     /* IMPORTANT: keeps the aspect ratio correct */
+  object-fit: contain;
+  animation: floatImage 6s ease-in-out infinite;
+}
+
+/* ===== Keyframes ===== */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealText {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatImage {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ===== Responsive (Mobile fallback) ===== */
+@media (max-width: 900px) {
+  .landing-container {
+    flex-direction: column; /* Stacks on smaller screens */
+    text-align: center;
+    padding: 4rem 2rem;
+    gap: 3rem;
+  }
+
+  .hero, .hero-image {
+    justify-content: center;
+  }
+
+  .button-group {
+    justify-content: center;
+  }
+  
+  .intro-text p br {
+    display: none; /* Removes awkward line breaks on mobile */
+  }
+}

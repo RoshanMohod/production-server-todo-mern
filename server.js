@@ -1,32 +1,35 @@
-const express = require('express')
-const morgan = require('morgan')
-const dotenv = require('dotenv')
+const express = require('express');
+const morgan = require('morgan');
+const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const errorMiddleware = require("./middlewares/errorMiddleware");
 
-//new config
-dotenv.config()
+// Dotenv config
+dotenv.config();
 
-//DB CONNECTION
+// DB Connection
 connectDB();
 
-//rest object
-const app = express()
+// Rest object
+const app = express();
 
-//middlewares
-app.use(express.json())
-app.use(morgan('dev'))
+// Middlewares
+app.use(express.json());
+app.use(morgan('dev'));
 app.use(cors());
 
-//routes
-app.use('/api/v1/user' ,require("./routes/userRoute"));
-app.use('/api/v1/test' ,require("./routes/testRouter"));
+// Routes
+app.use('/api/v1/user', require("./routes/userRoute"));
+app.use('/api/v1/test', require("./routes/testRouter"));
 
-//port
+// ERROR HANDLING MIDDLEWARE (Must be placed after all routes)
+app.use(errorMiddleware);
+
+// Port
 const PORT = process.env.PORT || 8080;
 
-//listen
+// Listen
 app.listen(PORT, () => {
-    console.log(`Node Server Running on  ${ process.env.DEV_MODE} mode on Port no ${PORT}`
-   );
+  console.log(`Node Server Running on ${process.env.DEV_MODE} mode on Port no ${PORT}`);
 });
