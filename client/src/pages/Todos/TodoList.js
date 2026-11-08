@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 import TodoModal from "../../components/TodoModal";
 import TodoCard from "../../components/TodoCard";
-import { getTodos, deleteTodo } from "../../services/todoService";
+import { getTodos, deleteTodo } from "../../Services/todoService";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);

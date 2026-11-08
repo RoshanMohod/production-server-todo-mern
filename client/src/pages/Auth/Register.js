@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
 import authIllustration from "../../assets/images/thumbnell.png";
-import AuthServices from "../../services/AuthServices";
+import AuthServices from "../../Services/AuthServices";
 import toast from "react-hot-toast";
 
 const Register = () => {
