@@ -19,11 +19,12 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
 
-// Routes
+// routes
 app.use('/api/v1/user', require("./routes/userRoute"));
 app.use('/api/v1/test', require("./routes/testRouter"));
+app.use('/api/v1/todo', require("./routes/todoRoute")); // <--- ADD THIS LINE
 
-// ERROR HANDLING MIDDLEWARE (Must be placed after all routes)
+// ERROR HANDLING MIDDLEWARE (Must remain at the very end of all routes)
 app.use(errorMiddleware);
 
 // Port
